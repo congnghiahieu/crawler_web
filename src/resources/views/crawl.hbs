@@ -1,0 +1,23 @@
+<h2>Crawled result</h2>
+<a href={{source}} target="_blank" class="source">Direct to source</a>
+<div class="dowload">
+    <a href="/crawling/dowload/{{fileName}}.csv" class="dowload-btn dowload-link__csv">
+        Dowload Data as CSV File
+    </a>
+    <a href="/crawling/dowload/{{fileName}}.xlsx" class="dowload-btn dowload-link__excel">
+        Dowload Data as Excel File
+    </a>
+</div>
+<ul class="data-list">
+    {{#each data}}
+    <li class="data-item">
+        <p class="data-item__id">Article number: {{this.id}}</p>
+        <p class="data-item__title">Title: {{this.title}}</p>
+        <p class="data-item__authors">Authors: {{this.authors}}</p>
+        <p class="data-item__releaseDate">Published: {{this.releaseDate}}</p>
+        <p class="data-item__collection">Collection: {{this.collection}}</p>
+    </li>
+    {{else}}
+    <li><p>Không có thông tin</p></li>
+    {{/each}}
+</ul>
