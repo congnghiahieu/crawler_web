@@ -1,23 +1,34 @@
-<h2>Crawled result</h2>
-<a href={{source}} target="_blank" class="source">Direct to source</a>
-<div class="dowload">
-    <a href="/crawling/dowload/{{fileName}}.csv" class="dowload-btn dowload-link__csv">
-        Dowload Data as CSV File
-    </a>
-    <a href="/crawling/dowload/{{fileName}}.xlsx" class="dowload-btn dowload-link__excel">
-        Dowload Data as Excel File
-    </a>
+<div class="crawl-summary">
+    <div class="crawl-notification">
+        <h2>Crawled result</h2>
+        <a href={{source}} target="_blank" class="source">Direct to source</a>
+    </div>
+    <div class="crawl-dowload">
+        <a href="/crawling/dowload/{{fileName}}.csv" class="dowload-btn dowload-link__csv">
+            Dowload Data as CSV File
+        </a>
+        <a href="/crawling/dowload/{{fileName}}.xlsx" class="dowload-btn dowload-link__excel">
+            Dowload Data as Excel File
+        </a>
+    </div>
 </div>
-<ul class="data-list">
+<table class="data-list">
+    <tr class="data-head">
+        <th>Article number</th>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Published</th>
+        <th>Collection</th>
+    </tr>
     {{#each data}}
-    <li class="data-item">
-        <p class="data-item__id">Article number: {{this.id}}</p>
-        <p class="data-item__title">Title: {{this.title}}</p>
-        <p class="data-item__authors">Authors: {{this.authors}}</p>
-        <p class="data-item__releaseDate">Published: {{this.releaseDate}}</p>
-        <p class="data-item__collection">Collection: {{this.collection}}</p>
-    </li>
+    <tr class="data-item">
+        <td class="data-item__id">{{this.id}}</td>
+        <td class="data-item__title"> {{this.title}}</td>
+        <td class="data-item__authors">{{this.authors}}</td>
+        <td class="data-item__releaseDate">{{this.releaseDate}}</td>
+        <td class="data-item__collection">{{this.collection}}</td>
+    </tr>
     {{else}}
-    <li><p>Không có thông tin</p></li>
+    <p>Không có thông tin</p>
     {{/each}}
-</ul>
+</table>
