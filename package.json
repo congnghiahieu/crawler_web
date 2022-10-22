@@ -4,7 +4,7 @@
   "description": "Crawler",
   "main": "src/main.js",
   "scripts": {
-    "start": "node src/main.js",
+    "start": "node main.js",
     "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
