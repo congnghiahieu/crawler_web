@@ -1,2 +1,2 @@
 /node_modules
-src/public/crawl_data
+src/public/crawl_data/*
