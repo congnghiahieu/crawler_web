@@ -1,16 +1,16 @@
-const myCrawler = require('../../util/crawler');
+const initApi = require('../../util/api');
 
 class CrawlController {
     //  [GET] /crawl
     async crawl(req, res, next) {
         const source = req.query.source;
+        console.log('Nguon ' + source);
 
-        const data = await myCrawler.run(source);
+        initApi({ source });
+        console.log('Da goi den api');
 
         res.render('crawl', {
-            data: data,
             source: source,
-            fileName: myCrawler.getFileName(),
         });
     }
 }

@@ -1,5 +1,5 @@
 const path = require('path');
-// const morgan = require('morgan');
+const morgan = require('morgan');
 const express = require('express');
 const { engine } = require('express-handlebars');
 const app = express();
@@ -26,7 +26,7 @@ app.use(
 app.use(express.json());
 
 // HTTP logger
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 // Routes init
 route(app);

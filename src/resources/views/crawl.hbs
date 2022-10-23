@@ -1,34 +1,80 @@
-<div class="crawl-summary">
-    <div class="crawl-notification">
-        <h2>Crawled result</h2>
-        <a href={{source}} target="_blank" class="source">Direct to source</a>
+<div class="crawl-body">
+    <div class="crawl-summary">
+        <div class="crawl-notification">
+            <h2 class="crawl-title">Crawling</h2>
+            <a href={{source}} target="_blank" class="source">Direct to source</a>
+        </div>
     </div>
-    <div class="crawl-dowload">
-        <a href="/crawling/dowload/{{fileName}}.csv" class="dowload-btn dowload-link__csv">
-            Dowload Data as CSV File
-        </a>
-        <a href="/crawling/dowload/{{fileName}}.xlsx" class="dowload-btn dowload-link__excel">
-            Dowload Data as Excel File
-        </a>
+    <div class="dots-loading">
+        <div style="--delay: 1s"></div>
+        <div style="--delay: 2s"></div>
+        <div style="--delay: 3s"></div>
+        <div style="--delay: 4s"></div>
+        <div style="--delay: 5s"></div>
     </div>
 </div>
-<table class="data-list">
-    <tr class="data-head">
-        <th>Article number</th>
-        <th>Title</th>
-        <th>Authors</th>
-        <th>Published</th>
-        <th>Collection</th>
-    </tr>
-    {{#each data}}
-    <tr class="data-item">
-        <td class="data-item__id">{{this.id}}</td>
-        <td class="data-item__title"> {{this.title}}</td>
-        <td class="data-item__authors">{{this.authors}}</td>
-        <td class="data-item__releaseDate">{{this.releaseDate}}</td>
-        <td class="data-item__collection">{{this.collection}}</td>
-    </tr>
-    {{else}}
-    <p>Không có thông tin</p>
-    {{/each}}
-</table>
+
+<script>
+    const api = 'http://localhost:5001/';
+    // DOM
+    const body = document.querySelector('.crawl-body');
+    const summary = document.querySelector('.crawl-summary');
+    const title = document.querySelector('.crawl-title');
+
+    fetch(api)
+        .then((response) =>  response.json())
+        .then((data) => {
+            console.log(data);
+            const {articles , fileName} = data;
+
+            // Remove loading
+            document.querySelector('.dots-loading').remove();
+
+            // title
+            title.textContent = 'Crawled result';
+
+            // Dowload
+            const dowloadDiv = document.createElement('div');
+            dowloadDiv.className = 'crawl-dowload';
+            const dowloadCsv = document.createElement('a');
+            dowloadCsv.href = `/crawling/dowload/${fileName}.csv`;
+            dowloadCsv.classList.add('dowload-btn','dowload-link__csv');
+            dowloadCsv.textContent = 'Dowload Data as CSV File';
+            const dowloadXlsx = document.createElement('a');
+            dowloadXlsx.href = `/crawling/dowload/${fileName}.xlsx`;
+            dowloadXlsx.classList.add('dowload-btn','dowload-link__xlsx');
+            dowloadXlsx.textContent = 'Dowload Data as Excel File';
+            dowloadDiv.appendChild(dowloadCsv);
+            dowloadDiv.appendChild(dowloadXlsx);
+            summary.appendChild(dowloadDiv);
+
+            // Articles
+            const list = document.createElement('table');
+            list.className = 'data-list';
+
+            const htmls = articles.map((article) => {
+                return `
+            <tr class="data-item">
+                <td class="data-item__id">${article.id}</td>
+                <td class="data-item__title">${article.title}</td>
+                <td class="data-item__authors">${article.authors}</td>
+                <td class="data-item__releaseDate">${article.releaseDate}</td>
+                <td class="data-item__collection">${article.collection}</td>
+            </tr>
+                `
+            }).join('');
+
+            list.innerHTML = `
+            <tr class="data-head">
+                <th>Article number</th>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>Published</th>
+                <th>Collection</th>
+            </tr>
+            ${htmls}
+            `;
+            body.appendChild(list);
+        })
+        .catch(err => console.log(err));
+</script>
