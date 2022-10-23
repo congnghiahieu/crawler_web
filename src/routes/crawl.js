@@ -3,6 +3,7 @@ const crawlController = require('../app/controllers/CrawlController');
 const path = require('path');
 
 router.get('/', crawlController.crawl);
+router.get('/result', crawlController.result);
 // dowload file
 router.get('/dowload/:file', function (req, res, next) {
     const filePath = path.join(__dirname, `../public/crawl_data/${req.params.file}`);
